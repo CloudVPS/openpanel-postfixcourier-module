@@ -1,0 +1,114 @@
+#!/bin/sh
+# --------------------------------------------------------------------------
+# OpenPanel - The Open Source Control Panel
+# Copyright (c) 2006-2007 PanelSix
+#
+# This software and its source code are subject to version 2 of the
+# GNU General Public License. Please be aware that use of the OpenPanel
+# and PanelSix trademarks and the IconBase.com iconset may be subject
+# to additional restrictions. For more information on these restrictions
+# and for a copy of version 2 of the GNU General Public License, please
+# visit the Legal and Privacy Information section of the OpenPanel
+# website on http:#www.openpanel.com/
+# --------------------------------------------------------------------------
+if [ ! -d /etc/postfix ]; then
+  echo "Postfix missing"
+  echo "quit" >&3
+  exit 1
+fi
+
+if [ ! -d /etc/postfix/openpanel ]; then
+  echo "/etc/postfix/openpanel missing"
+  echo "quit" >&3
+  exit 1
+fi
+
+PATH=$PATH:/usr/sbin  # for postconf, just to be sure
+
+maildroploc=`grep --after-context=1 ^maildrop /etc/postfix/master.cf | tail -1 | sed -e "s/.*argv=//;s/ .*//"`
+if [ -z "$maildroploc" ]; then
+  echo "Maildrop not configured"
+  echo "quit" >&3
+  exit 1
+fi
+
+if [ ! -e "$maildroploc" ]; then
+  echo "Missing maildrop binary"
+  echo "quit" >&3
+  exit 1
+fi
+
+postconf -h virtual_mailbox_domains | grep -wq hash:/etc/postfix/openpanel/virtual_mailbox_domains || {
+  echo "virtual_mailbox_domains incomplete"
+  echo "quit" >&3
+  exit 1
+}
+
+postconf -h virtual_mailbox_maps | grep -wq hash:/etc/postfix/openpanel/virtual_mailbox || {
+  echo "virtual_mailbox_maps incomplete"
+  echo "quit" >&3
+  exit 1
+}
+
+postconf -h virtual_alias_maps | grep -wq hash:/etc/postfix/openpanel/virtual_alias || {
+  echo "virtual_alias_maps incomplete"
+  echo "quit" >&3
+  exit 1
+}
+
+# TODO: move lima check to lima: grep -wq hash:/etc/postfix/openpanel/lima/transport 
+postconf -h transport_maps | grep -wq hash:/etc/postfix/openpanel/transport_map || {
+  echo "transport_maps incomplete"
+  echo "quit" >&3
+  exit 1
+}
+
+postconf -h relay_domains | grep -wq hash:/etc/postfix/openpanel/transport_map || {
+  echo "relay_domains incomplete"
+  echo "quit" >&3
+  exit 1
+}
+
+postconf -h smtpd_sasl_security_options | grep -wq noanonymous || {
+  echo "smtpd_sasl_security_options incomplete"
+  echo "quit" >&3
+  exit 1
+}
+
+# TODO: move amavis check to amavis
+postconf -h smtpd_recipient_restrictions | grep -w permit_sasl_authenticated | grep -wq reject_unauth_destination || {
+  echo "smtpd_recipient_restrictions incomplete"
+  echo "quit" >&3
+  exit 1
+}
+
+egrep -q '^maildrop_destination_recipient_limit[[:space:]]*=[[:space:]]*1([[:space:]]|$)' /etc/postfix/main.cf || {
+  echo "maildrop_destination_recipient_limit should be 1"
+  echo "quit" >&3
+  exit 1
+}
+
+if [ ! "`postconf -h virtual_transport`" = maildrop ]; then
+  echo "virtual_transport should be maildrop"
+  echo "quit" >&3
+  exit 1
+fi
+
+if [ ! "`postconf -h smtpd_sasl_auth_enable`" = yes ]; then
+  echo "smtpd_sasl_auth_enable should be yes"
+  echo "quit" >&3
+  exit 1
+fi
+
+ps axuw | grep -v grep | grep -q postfix/master 2>&1 || {
+  echo "Postfix not running"
+  echo "quit" >&3
+  exit 1
+}
+if [ ! -d /etc/courier-auth ]; then
+  echo "Missing courier-auth"
+  echo "quit" >&3
+  exit 1
+fi
+echo "quit" >&3
+

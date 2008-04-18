@@ -1,0 +1,14 @@
+540
+<?xml version="1.0" encoding="UTF-8"?>
+<dict>
+        <string id="OpenCORE:Context">Mail</string>
+        <dict id="OpenCORE:Session">
+                <string id="sessionid">60b5f2d0-a156-4f20-bfff-9a8662398f4e</string>
+                <string id="classid">Mail</string>
+                <string id="objectid">f910c565-38e5-4cf3-95dd-80146ba75050</string>
+        </dict>
+        <dict id="Mail" type="object">
+                <string id="id">example.net</string>
+        </dict>
+        <string id="OpenCORE:Command">create</string>
+</dict>

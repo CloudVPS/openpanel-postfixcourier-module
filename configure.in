@@ -1,0 +1,9 @@
+cxx
+dbfile
+grace
+pthread
+libsocket
+libcrypt
+libdl
+unixflavor
+db4

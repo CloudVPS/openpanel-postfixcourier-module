@@ -1,0 +1,31 @@
+<xml.schema>
+
+	<xml.class name="openpanel.module.postfixcourier">
+		<xml.type>dict</xml.type>
+		<xml.proplist>
+			<xml.member class="config"	id="config"/>
+		</xml.proplist>
+	</xml.class>
+
+	<xml.class name="config">
+		<xml.type>dict</xml.type>
+		<xml.proplist>
+			<xml.member class="varpath" 	id="varpath"/>
+			<xml.member class="postfixpath" id="postfixpath"/>
+			<xml.member class="courierpath" id="courierpath"/>
+		</xml.proplist>
+	</xml.class>
+
+	<xml.class name="varpath">
+		<xml.type>string</xml.type>
+	</xml.class>
+	
+	<xml.class name="postfixpath">
+		<xml.type>string</xml.type>
+	</xml.class>
+	
+	<xml.class name="courierpath">
+		<xml.type>string</xml.type>
+	</xml.class>
+	
+</xml.schema>

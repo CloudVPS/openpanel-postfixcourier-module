@@ -1,0 +1,22 @@
+846
+<?xml version="1.0" encoding="UTF-8"?>
+<dict>
+        <string id="OpenCORE:Context">Mail:Box</string>
+        <dict id="OpenCORE:Session">
+                <string id="sessionid">9f45e072-36b5-437c-b4a4-9b963593c7c8</string>
+                <string id="classid">Mail:Box</string>
+                <string id="objectid">69cdd268-1d24-40c4-aec9-bb3597685238</string>
+        </dict>
+        <dict id="Mail:Box" type="object">
+                <string id="id">peter</string>
+				<string id="password">foobar</string>
+				<string id="forwardto"></string>
+				<bool id="allowrelay">true</bool>
+				<bool id="allowpop3">false</bool>
+				<bool id="allowimap">true</bool>
+        </dict>
+        <dict id="Mail" type="object">
+                <string id="id">example.net</string>
+        </dict>
+        <string id="OpenCORE:Command">create</string>
+</dict>

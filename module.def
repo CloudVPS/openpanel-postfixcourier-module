@@ -1,0 +1,190 @@
+# ============================================================================
+# OpenPanel PostfixCourier.module for postfix/courier-based email hosting
+# Copyright (C) 2008 PanelSix V.O.F.
+# ============================================================================
+module PostfixCourier		< uuid 8ed052b4-8040-436b-ba84-6f440b88fe0a
+							< version 1.1
+							< languages en_EN
+							< requires Domain.module
+							< apitype xml
+
+
+# ============================================================================
+# CLASSES
+# ============================================================================
+class Mail					< uuid b34b170d-2e8b-4c16-ae9a-a7009fc427ae
+							< version 1
+							< icon mail-edit.png
+							< requires Domain
+							< indexing manual
+							< uniquein class
+							< parentrealm domainsuffix
+							< shortname email
+							< title Email
+							< description Email domain configuration
+							< sortindex 40
+							
+							< capabilities create update delete
+	
+	string id				: Mail (sub-)domain
+							< gridwidth 60
+	
+	string remotehost		: Remote host for delivery (disables normal mailboxes)
+							< regexp [:host:]
+							< flags enabled visible
+							< gridwidth 38
+
+
+# ----------------------------------------------------------------------------
+class Meta:Mail:Address		< uuid e1bc6f6b-041c-4dbc-b408-f12944d957f0
+							< version 1
+							< requires Mail
+							< indexing manual
+							< parentrealm emailsuffix
+							< uniquein parent
+							< shortname address
+							< title Address
+							< description Mail address
+							
+							< metatype base
+							
+	string id				: Address < gridwidth 40
+	string type				: Address type < gridwidth 10
+	string description		: Description < gridwidth 48
+
+
+# ----------------------------------------------------------------------------
+class Mail:Box				< uuid e7534f82-ac85-47b2-9c67-40d4e2ea4450
+							< version 1
+							< requires Mail
+							< indexing manual
+							< parentrealm emailsuffix
+							< uniquein parent
+							< shortname box
+							< title Mailbox
+							< description Mail box
+							
+							< capabilities create update delete
+							< listview id forwardto allowpop3 allowimap
+							< required id password allowpop3 allowimap allowrelay
+							
+							< metatype derived
+							< metabase Meta:Mail:Address
+							< metadescription pop3:$allowpop3$ imap:$allowimap$
+							
+	string id				: Mailbox name			< regexp [:mailuser:]
+	password password		: Password
+							< crypt md5
+							< regexp .*
+	
+	string forwardto		: Temporary forwarding address
+							< example address@elsewhere.example.net
+							< flags enabled visible
+	
+	bool allowrelay			: SMTP AUTH relaying access
+							< default true
+	
+	bool allowpop3			: POP3 access			< default true
+	bool allowimap			: IMAP access			< default false
+	bool autorespond		: Enable autoresponder	< default false
+	string automessage		: Autoresponse message
+
+
+# ----------------------------------------------------------------------------
+class Mail:Alias			< uuid 6bec83e8-9fbf-49b6-bc9e-2afa4bfdef9b
+							< version 1
+							< requires Mail
+							< indexing manual
+							< parentrealm emailsuffix
+							< uniquein parent
+							< shortname alias
+							< title Mail Alias
+							< description Mail alias
+							
+							< capabilities create update delete
+							
+							< metatype derived
+							< metabase Meta:Mail:Address
+							< metadescription -
+							
+	string id				: Alias address			< regexp [:mailuser:]
+
+
+# ----------------------------------------------------------------------------
+class Mail:Destination		< uuid 439f8dac-94d1-4126-9cc5-1353c29eccf2
+							< version 1
+							< requires Mail:Alias
+							< indexing auto
+							< shortname dest
+							< title Mail Destination
+							< description Destination address
+							
+							< capabilities create update delete
+	
+	string id				: id < flags enabled
+							
+	group addr				: Address
+							< flags enabled visible
+							< gridwidth 99
+	
+	string addressval		: Forwarding address
+							< group addr
+							< nick addr
+							< gridhide true
+	
+	ref addressref			: Internal forwarding address
+							< group addr
+							< nick addr
+							< ref Mail:Box/id
+							< gridhide true
+
+
+# ============================================================================
+# AUTHD
+# ============================================================================
+authd fileops
+	match userdb			: /etc/courier-auth
+							< user root
+							< group root
+							< perms 0600
+	
+	match userdb.dat		: /etc/courier-auth
+							< user root
+							< group root
+							< perms 0644
+	
+	match userdbshadow.dat	: /etc/courier-auth
+							< user root
+							< group root
+							< perms 0600
+	
+	match *					: /var/vmail/*
+							< user vmail
+							< group vmail
+							< perms 0600
+	
+	match virtual_*			: /etc/postfix/openpanel
+							< user root
+							< group root
+							< perms 0644
+	
+	match transport_map*	: /etc/postfix/openpanel
+							< user root
+							< group root
+							< perms 0644
+	
+	match *@*				: /etc/vacationdrop/recipients
+							< user root
+							< group root
+							< perms 0600
+	
+	match *@*.*				: /var/db/vacationdrop
+							< user vmail
+							< group vmail
+							< perms 0600
+
+
+# ----------------------------------------------------------------------------
+authd services
+	service postfix
+	service courier-imap

@@ -1,0 +1,8 @@
+syntax: glob
+postfixcouriermodule.app
+*.o
+makeinclude
+platform.h
+configure.paths
+.gdb_history
+ktrace.out

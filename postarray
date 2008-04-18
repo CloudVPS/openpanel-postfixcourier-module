@@ -1,0 +1,88 @@
+#!/bin/sh
+PATH=${PATH}:/usr/sbin
+
+get_postarray() {
+  postconf -h $1 | sed -e "s/, /\n/g"
+}
+
+add_to_restrictions() {
+  added=""
+  rfirst=""
+  get_postarray smtpd_recipient_restrictions | while read restr; do
+    if [ -z "$rfirst" ]; then
+      rfirst=1
+    else
+      echo -n ", "
+    fi
+    if [ "$restr" = "$1" ]; then
+      added=1
+    fi
+    echo "$restr" | egrep "^reject" >/dev/null && if [ -z "$added" ]; then echo -n "${1}, "; fi && added=1
+    echo -n "$restr"
+  done
+  if [ -z "$added" ]; then
+    echo -n ", ${1}"
+  fi
+  echo ""
+}
+
+add_to_array() {
+  added=""
+  rfirst=""
+  ( ( get_postarray $1 | grep -v "$2" ) && echo "$2" ) | while read node; do
+    if [ -z "$rfirst" ]; then
+      rfirst=1
+    else
+      echo -n ", "
+    fi
+    echo -n "$node"
+  done
+}
+
+remove_from_array() {
+  rfirst=""
+  get_postarray $1 | while read node; do
+    if [ "$node" != "$2" ]; then
+      if [ -z "$rfirst" ]; then
+        rfirst=1
+      else
+        echo -n ", "
+      fi
+      echo -n "$node"
+    fi
+  done
+  echo ""
+}
+
+postfix_addrestriction() {
+  newval=`add_to_restrictions "$1"`
+  postconf -e "smtpd_recipient_restrictions=$newval"
+}
+
+postfix_addarrayval() {
+  newval=`add_to_array "$1" "$2"`
+  postconf -e "$1=$newval"
+}
+
+postfix_rmarrayval() {
+  newval=`remove_from_array "$1" "$2"`
+  postconf -e "$1=$newval"
+}
+
+case "$1" in
+        addrestriction)
+                postfix_addrestriction "$2"
+                ;;
+        delrestriction)
+                postfix_rmarrayval smtpd_recipient_restrictions "$2"
+                ;;
+        add)
+                postfix_addarrayval "$2" "$3"
+                ;;
+        del)
+                postfix_rmarrayval "$2" "$3"
+                ;;
+        *)
+                exit 1
+                ;;
+esac

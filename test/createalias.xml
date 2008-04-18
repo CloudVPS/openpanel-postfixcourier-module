@@ -1,0 +1,25 @@
+989
+<?xml version="1.0" encoding="UTF-8"?>
+<dict>
+        <string id="OpenCORE:Context">Mail:Alias</string>
+        <dict id="OpenCORE:Session">
+                <string id="sessionid">aadb07b9-4573-4844-a51b-f01042b69970</string>
+                <string id="classid">Mail:Alias</string>
+                <string id="objectid">a9708bbc-76ba-4e8a-9b03-5de3706bcbfd</string>
+        </dict>
+        <dict id="Mail:Alias" type="object">
+                <string id="id">info</string>
+				<dict id="Mail:Alias:Destination" type="class">
+						<dict id="c45f6513-83f0-428b-a528-d70fbc0a93f9" type="object">
+								<string id="address">peter@dataloss.nl</string>
+						</dict>
+						<dict id="8fd2ad2a-0814-4d02-b719-eabab60e8b91" type="object">
+								<string id="address">peter</string>
+						</dict>
+				</dict>
+        </dict>
+        <dict id="Mail" type="object">
+                <string id="id">example.net</string>
+        </dict>
+        <string id="OpenCORE:Command">create</string>
+</dict>
