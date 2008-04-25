@@ -37,6 +37,8 @@ postconf -e virtual_alias_maps=hash:/etc/postfix/openpanel/virtual_alias
 postconf -e transport_maps=hash:/etc/postfix/openpanel/transport_map
 postconf -e relay_domains=hash:/etc/postfix/openpanel/transport_map
 postconf -e 'smtpd_recipient_restrictions=permit_mynetworks, permit_sasl_authenticated, check_relay_domains, reject_unauth_destination'
+# Mantis #0000355
+postconf -e mydestination=localmail.`hostname`
 
 cat > /usr/lib/sasl2/smtpd.conf << _EOF_
 pwcheck_method: authdaemond
