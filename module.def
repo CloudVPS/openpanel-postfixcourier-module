@@ -121,8 +121,6 @@ class Mail:Destination		< uuid 439f8dac-94d1-4126-9cc5-1353c29eccf2
 							
 							< capabilities create update delete
 	
-	string id				: id < flags enabled
-							
 	group addr				: Address
 							< flags enabled visible
 							< gridwidth 99
