@@ -92,7 +92,7 @@ class Mail:Box				< uuid e7534f82-ac85-47b2-9c67-40d4e2ea4450
 
 # ----------------------------------------------------------------------------
 class Mail:Alias			< uuid 6bec83e8-9fbf-49b6-bc9e-2afa4bfdef9b
-							< version 1
+							< version 2
 							< requires Mail
 							< indexing manual
 							< parentrealm emailsuffix
@@ -113,7 +113,7 @@ class Mail:Alias			< uuid 6bec83e8-9fbf-49b6-bc9e-2afa4bfdef9b
 
 # ----------------------------------------------------------------------------
 class Mail:Destination		< uuid 439f8dac-94d1-4126-9cc5-1353c29eccf2
-							< version 1
+							< version 2
 							< requires Mail:Alias
 							< indexing auto
 							< shortname dest
