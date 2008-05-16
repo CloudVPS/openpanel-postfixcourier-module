@@ -100,6 +100,7 @@ class Mail:Alias			< uuid 6bec83e8-9fbf-49b6-bc9e-2afa4bfdef9b
 							< shortname alias
 							< title Mail Alias
 							< description Mail alias
+							< allchildren true
 							
 							< capabilities create update delete
 							
@@ -121,18 +122,18 @@ class Mail:Destination		< uuid 439f8dac-94d1-4126-9cc5-1353c29eccf2
 							
 							< capabilities create update delete
 	
-	group addr				: Address
+	group address				: Address
 							< flags enabled visible
 							< gridwidth 99
 	
 	string addressval		: Forwarding address
-							< group addr
-							< nick addr
+							< group address
+							< nick address
 							< gridhide true
 	
 	ref addressref			: Internal forwarding address
-							< group addr
-							< nick addr
+							< group address
+							< nick address
 							< ref Mail:Box/id
 							< gridhide true
 
