@@ -30,7 +30,7 @@ class Mail					< uuid b34b170d-2e8b-4c16-ae9a-a7009fc427ae
 							< gridwidth 60
 	
 	string remotehost		: Remote host for delivery (disables normal mailboxes)
-							< regexp [:host:]
+							< regexp [:hostport:]
 							< flags enabled visible
 							< gridwidth 38
 
