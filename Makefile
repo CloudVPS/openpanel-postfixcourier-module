@@ -16,6 +16,9 @@ postfixcouriermodule.exe: $(OBJ)
 	$(LD) $(LDFLAGS) -o postfixcouriermodule.exe $(OBJ) \
 	../opencore/api/c++/lib/libcoremodule.a $(LIBS)
 
+masterconf: masterconf.o
+	$(LD) $(LDFLAGS) -o masterconf masterconf.o $(LIBS)
+
 clean:
 	rm -f *.o *.exe
 	rm -rf postfixcouriermodule.app
