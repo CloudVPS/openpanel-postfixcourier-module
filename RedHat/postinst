@@ -1,50 +1,9 @@
 #!/bin/sh
 cd /
-[ -e /etc/openpanel/.postfixconverted ] && exit 0
 
-grep "/usr/bin/maildrop" /etc/postfix/master.cf >/dev/null 2>&1 || {
-patch -p0 >/dev/null 2>&1 << _EOF_
-*** /etc/postfix/master.cf.orig Thu Dec 21 18:48:37 2006
---- /etc/postfix/master.cf      Thu Dec 21 18:49:02 2006
-***************
-*** 55,61 ****
-  # Also specify in main.cf: maildrop_destination_recipient_limit=1
-  #
-  maildrop  unix  -       n       n       -       -       pipe
-!   flags=DRhu user=vmail argv=/usr/local/bin/maildrop -d \${recipient}
-  #
-  # The Cyrus deliver program has changed incompatibly, multiple times.
-  #
---- 55,61 ----
-  # Also specify in main.cf: maildrop_destination_recipient_limit=1
-  #
-  maildrop  unix  -       n       n       -       -       pipe
-!   flags=DRhu user=vmail argv=/usr/bin/maildrop -d \${recipient}
-  #
-  # The Cyrus deliver program has changed incompatibly, multiple times.
-  #
-_EOF_
+egrep -q "argv=/usr/bin/maildrop|argv=/usr/bin/vacationdrop" /etc/postfix/master.cf || {
+	/var/opencore/bin/masterconf set maildrop "unix - n n - - pipe flags=DRhu user=vmail argv=/usr/bin/maildrop -d \${recipient}"
 }
-
-postconf -e inet_interfaces=all
-postconf -e maildrop_destination_recipient_limit=1
-postconf -e virtual_transport=maildrop
-postconf -e smtpd_sasl_auth_enable=yes
-postconf -e smtpd_sasl_authenticated_header=yes
-postconf -e virtual_mailbox_domains=hash:/etc/postfix/openpanel/virtual_mailbox_domains
-postconf -e virtual_mailbox_maps=hash:/etc/postfix/openpanel/virtual_mailbox
-postconf -e virtual_alias_maps=hash:/etc/postfix/openpanel/virtual_alias
-postconf -e transport_maps=hash:/etc/postfix/openpanel/transport_map
-postconf -e relay_domains=hash:/etc/postfix/openpanel/transport_map
-postconf -e 'smtpd_recipient_restrictions=permit_mynetworks, permit_sasl_authenticated, check_relay_domains, reject_unauth_destination'
-# Mantis #0000355
-postconf -e mydestination=localmail.`hostname`
-
-cat > /usr/lib/sasl2/smtpd.conf << _EOF_
-pwcheck_method: authdaemond
-authdaemond_path:/var/spool/authdaemon/socket
-mech_list: PLAIN LOGIN
-_EOF_
 
 if [ ! -d /etc/courier-auth ]; then
   mkdir /etc/courier-auth
@@ -62,6 +21,7 @@ fi
 ln -s courier-auth/ maildrop
 
 touch /etc/courier-auth/locallowercase
+/var/opencore/modules/PostfixCourier.module/fixconfig
 
 chkconfig --level 2345 postfix on
 chkconfig --level 2345 courier-authlib on
