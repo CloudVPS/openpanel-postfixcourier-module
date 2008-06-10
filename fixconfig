@@ -1,0 +1,107 @@
+#!/bin/sh
+
+postarray=/var/opencore/modules/PostfixCourier.module/postarray
+
+setup_vmail() {
+	vmailid=$(id vmail 2>/dev/null)
+	if [ -z "$vmailid" ]; then
+	  echo "* Creating vmail user" >&2
+	  groupadd -f vmail >/dev/null
+	  useradd vmail -r -g vmail >/dev/null
+	fi
+	if [ ! -d /var/vmail ]; then
+	  mkdir -p /var/vmail
+	  chown vmail /var/vmail
+	  chgrp vmail /var/vmail
+	  chmod 700 /var/vmail
+	fi
+}
+
+setup_pf_openpaneldir() {
+	dblist="virtual_alias virtual_mailbox virtual_mailbox_domains transport_map"
+	if [ ! -d /etc/postfix/openpanel ]; then
+	  echo "* Setting up openpanel dir"  >&2
+	  mkdir -p /etc/postfix/openpanel
+	  for db in $dblist; do
+	    touch /etc/postfix/openpanel/$db
+	  done
+	fi
+	
+	for db in $dblist; do
+	  if [ ! -e /etc/postfix/openpanel/${db}.db ]; then
+	    echo "* Creating db for $db"  >&2
+	    /usr/sbin/postmap /etc/postfix/openpanel/$db
+	  fi
+	done
+}
+
+is_map_set() {
+	mapname="$1"
+	dbmatch="$2"
+	list=$(postconf -h $mapname | sed -e "s/, / /g")
+	for map in $list; do
+	  if [ "$map" = "$dbmatch" ]; then
+	    return 0
+	  fi
+	done
+	return 1
+}
+
+check_or_set_map() {
+	mapname="$1"
+	dbmatch="$2"
+	is_map_set "$mapname" "$dbmatch" || {
+		echo "* Adding $dbmatch to $mapname"  >&2
+		$postarray add "$mapname" "$dbmatch"
+	}
+}
+
+set_value() {
+	oldval=$(postconf -h $1)
+	if [ ! "$oldval" = "$2" ]; then
+		echo "* Setting $1" >&2
+		postconf -e "$1=$2"
+	fi
+}
+
+setup_postconf() {
+	set_value maildrop_destination_recipient_limit 1
+	set_value virtual_transport maildrop
+	set_value smtpd_sasl_auth_enable yes
+	set_value smtpd_sasl_local_domain "\$myhostname"
+	set_value smtpd_sasl_security_options noanonymous
+	set_value smtpd_recipient_restrictions "permit_mynetworks, permit_sasl_authenticated, check_relay_domains, reject_unauth_destination"
+	set_value mydestination localmail.`hostname`
+	
+	check_or_set_map virtual_mailbox_domains hash:/etc/postfix/openpanel/virtual_mailbox_domains
+	check_or_set_map virtual_mailbox_maps hash:/etc/postfix/openpanel/virtual_mailbox
+	check_or_set_map virtual_alias_maps hash:/etc/postfix/openpanel/virtual_alias
+	check_or_set_map transport_maps hash:/etc/postfix/openpanel/transport_map
+	check_or_set_map relay_domains hash:/etc/postfix/openpanel/transport_map
+}
+
+setup_saslconf() {
+	if [ -d /usr/lib/sasl2 ] && [ -f /etc/redhat-release ]; then
+		saslpath=/usr/lib/sasl2
+		courierauth=/etc/courier-auth
+		authdaemonpath="/var/spool/authdaemon"
+	else
+		saslfile=/etc/postfix/sasl
+		courierauth=/etc/courier
+		authdaemonpath="/var/run/courier/authdaemon"
+	fi
+		
+	cat > $saslpath/smtpd.conf << _EOF_
+pwcheck_method: authdaemond
+log_level: 3
+mech_list: PLAIN LOGIN
+authdaemond_path: ${authdaemonpath}/socket
+_EOF_
+	sed -i'' 's/^authmodulelist="authpam"/authmodulelist="authuserdb"/' $courierauth/authdaemonrc
+	touch $courierauth/locallowercase
+}
+
+setup_vmail
+setup_pf_openpaneldir
+setup_postconf
+setup_saslconf
