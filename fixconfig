@@ -65,6 +65,7 @@ set_value() {
 }
 
 setup_postconf() {
+	set_value inet_interfaces all
 	set_value maildrop_destination_recipient_limit 1
 	set_value virtual_transport maildrop
 	set_value smtpd_sasl_auth_enable yes
