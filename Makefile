@@ -2,7 +2,7 @@ include makeinclude
 
 OBJ	= main.o version.o
 
-all: module.xml postfixcouriermodule.exe
+all: module.xml postfixcouriermodule.exe masterconf
 	mkapp postfixcouriermodule
 	@mkdir -p tmp
 
