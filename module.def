@@ -28,6 +28,7 @@ class Mail					< uuid b34b170d-2e8b-4c16-ae9a-a7009fc427ae
 	
 	string id				: Mail (sub-)domain
 							< gridwidth 60
+							< regexp [:domain:]
 	
 	string remotehost		: Remote host for delivery (disables normal mailboxes)
 							< regexp [:hostport:]
