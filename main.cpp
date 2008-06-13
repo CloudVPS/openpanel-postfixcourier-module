@@ -774,6 +774,16 @@ bool postfixcourierModule::setPostfixBox (const string &in_address)
 	pf_rewrite_mailbox = true;
 	// Close all databases and files.
 	DB.close ();
+	
+	db4file ADB;
+	ADB.setencoding (dbfile::flat);
+	if (ADB.open ("virtual_alias.db"))
+	{
+		ADB.db[address] = (string) address;
+		ADB.commit ();
+		pf_rewrite_alias = true;
+	}
+	ADB.close ();
 	return true;
 }
 
@@ -797,12 +807,22 @@ bool postfixcourierModule::delPostfixBox (const string &in_address)
 	}
 	
 	// FIXME: sanity check address (no newlines etc.)
-	DB.rmval(address);
+	DB.rmval (address);
 	DB.commit ();
 	
 	pf_rewrite_mailbox = true;
 	// Close all databases and files.
 	DB.close ();
+	
+	db4file ADB;
+	ADB.setencoding (dbfile::flat);
+	if (ADB.open ("virtual_alias.db"))
+	{
+		ADB.rmval (address);
+		ADB.commit ();
+		pf_rewrite_alias = true;
+	}
+	ADB.close ();
 	return true;
 }
 
