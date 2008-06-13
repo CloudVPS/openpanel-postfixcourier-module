@@ -1,6 +1,6 @@
 #!/bin/sh
 
-postarray=/var/opencore/modules/PostfixCourier.module/postarray
+postarray=/var/opencore/bin/postarray
 
 setup_vmail() {
 	vmailid=$(id vmail 2>/dev/null)
