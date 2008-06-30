@@ -81,7 +81,7 @@ public:
 				}
 				res.strcat ("%s\t" %format (ss.id()));
 				if (ss.id().sval().strlen() < 8) res.strcat ("\t");
-				res.strcat ("%s\t" %format (s.id());
+				res.strcat ("%s\t" %format (s.id()));
 				res.strcat (s.join ("\t"));
 				bool hadflag = false, onnewline = true;
 				res.strcat ("\n");
