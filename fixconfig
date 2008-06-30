@@ -28,10 +28,11 @@ setup_pf_openpaneldir() {
 	if [ ! -d /etc/postfix/openpanel ]; then
 	  echo "* Setting up openpanel dir"  >&2
 	  mkdir -p /etc/postfix/openpanel
-	  for db in $dblist; do
-	    touch /etc/postfix/openpanel/$db
-	  done
 	fi
+	
+	for db in $dblist; do
+	  touch /etc/postfix/openpanel/$db
+	done
 	
 	for db in $dblist; do
 	  if [ ! -e /etc/postfix/openpanel/${db}.db ]; then
