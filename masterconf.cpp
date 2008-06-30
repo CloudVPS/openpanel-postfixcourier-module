@@ -44,8 +44,7 @@ public:
 					exit (1);
 				}
 				
-				res[words[0].sval()] =
-					$("type", words[1]) ->
+				res[words[0].sval()][words[1].sval()] =
 					$("private", words[2]) ->
 					$("unpriv", words[3]) ->
 					$("chroot", words[4]) ->
@@ -70,40 +69,43 @@ public:
 			  "# service       type    private unpriv  chroot  wakeup  maxproc cmd+args\n"
 			  "# ===========================================================================\n";
 			  
-		foreach (s, cf)
+		foreach (ss, cf)
 		{
-			value opts;
-			if (s.exists ("opts"))
+			foreach (s, ss)
 			{
-				opts = s["opts"];
-				s.rmval ("opts");
-			}
-			res.strcat ("%s\t" %format (s.id()));
-			if (s.id().sval().strlen() < 8) res.strcat ("\t");
-			res.strcat (s.join ("\t"));
-			bool hadflag = false, onnewline = true;
-			res.strcat ("\n");
-			if (opts.count()) res.strcat ("  ");
-			foreach (o, opts)
-			{
-				const string &so = o.sval();
-				if (so == "-o")
+				value opts;
+				if (s.exists ("opts"))
 				{
-					if (hadflag)
-					{
-						onnewline = true;
-						res.strcat ("\n  ");
-					}
-					hadflag = true;
+					opts = s["opts"];
+					s.rmval ("opts");
 				}
-				if (! onnewline) res.strcat (' ');
-				res.strcat (so);
-				onnewline = false;
+				res.strcat ("%s\t" %format (ss.id()));
+				if (ss.id().sval().strlen() < 8) res.strcat ("\t");
+				res.strcat ("%s\t" %format (s.id());
+				res.strcat (s.join ("\t"));
+				bool hadflag = false, onnewline = true;
+				res.strcat ("\n");
+				if (opts.count()) res.strcat ("  ");
+				foreach (o, opts)
+				{
+					const string &so = o.sval();
+					if (so == "-o")
+					{
+						if (hadflag)
+						{
+							onnewline = true;
+							res.strcat ("\n  ");
+						}
+						hadflag = true;
+					}
+					if (! onnewline) res.strcat (' ');
+					res.strcat (so);
+					onnewline = false;
+				}
+				if (! onnewline) res.strcat ("\n");
+				if (opts.count()) res.strcat ("\n");
 			}
-			if (! onnewline) res.strcat ("\n");
-			if (opts.count()) res.strcat ("\n");
 		}
-		
 		return &res;
 	}
 	
@@ -123,8 +125,7 @@ public:
 				for (int i=7; i<av.count(); ++i)
 					optv.newval() = av[i];
 					
-				v[args[1].sval()] =
-					$("type", av[0]) ->
+				v[args[1].sval()][av[0].sval()] =
 					$("private", av[1]) ->
 					$("unpriv", av[2]) ->
 					$("chroot", av[3]) ->
