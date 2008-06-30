@@ -3,7 +3,7 @@
 postarray=/var/opencore/bin/postarray
 
 check_mastercf() {
-	egrep -q ""smtp.*inet.*smtpd" /etc/postfix/master.cf || {
+	egrep -q "smtp.*inet.*smtpd" /etc/postfix/master.cf || {
 		/var/opencore/bin/masterconf set smtp "inet n - n - - smtpd"
 	}
 }
