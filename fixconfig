@@ -94,7 +94,7 @@ setup_saslconf() {
 		courierauth=/etc/courier-auth
 		authdaemonpath="/var/spool/authdaemon"
 	else
-		saslfile=/etc/postfix/sasl
+		saslpath=/etc/postfix/sasl
 		courierauth=/etc/courier
 		authdaemonpath="/var/run/courier/authdaemon"
 	fi
