@@ -32,7 +32,7 @@ public:
 			if (isspace (ln[0]) && res.count())
 			{
 				value opts = strutil::splitspace (ln);
-				foreach (o, opts) res[-1]["opts"].newval() = o;
+				foreach (o, opts) res[-1][-1]["opts"].newval() = o;
 			}
 			else
 			{
