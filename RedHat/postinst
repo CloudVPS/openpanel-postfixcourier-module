@@ -4,7 +4,7 @@ cd /
 egrep -q "argv=/usr/bin/maildrop|argv=/usr/bin/vacationdrop" /etc/postfix/master.cf || {
 	/var/opencore/bin/masterconf set maildrop "unix - n n - - pipe flags=DRhu user=vmail argv=/usr/bin/maildrop -d \${recipient}"
 }
-egrep -q ""smtp.*inet.*smtpd" /etc/postfix/master.cf || {
+egrep -q "smtp.*inet.*smtpd" /etc/postfix/master.cf || {
 	/var/opencore/bin/masterconf set smtp "inet n - n - - smtpd"
 }
 
