@@ -122,6 +122,7 @@ class Mail:Destination		< uuid 439f8dac-94d1-4126-9cc5-1353c29eccf2
 							< description Destination address
 							
 							< capabilities create update delete
+							< required destination
 	
 	string address			: Address
 							< flags enabled visible
