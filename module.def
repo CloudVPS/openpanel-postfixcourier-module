@@ -123,20 +123,10 @@ class Mail:Destination		< uuid 439f8dac-94d1-4126-9cc5-1353c29eccf2
 							
 							< capabilities create update delete
 	
-	group address				: Address
+	string address			: Address
 							< flags enabled visible
 							< gridwidth 99
 	
-	string addressval		: Forwarding address
-							< group address
-							< nick address
-							< gridhide true
-	
-	ref addressref			: Internal forwarding address
-							< group address
-							< nick address
-							< ref Mail:Box/id
-							< gridhide true
 
 
 # ============================================================================
