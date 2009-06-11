@@ -88,7 +88,7 @@ class Mail:Box				< uuid e7534f82-ac85-47b2-9c67-40d4e2ea4450
 	bool allowpop3			: POP3 access			< default true
 	bool allowimap			: IMAP access			< default false
 	bool autorespond		: Enable autoresponder	< default false
-	string automessage		: Autoresponse message
+	textarea automessage	: Autoresponse message
 
 
 # ----------------------------------------------------------------------------
