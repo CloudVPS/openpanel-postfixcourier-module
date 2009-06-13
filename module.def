@@ -38,7 +38,7 @@ class Mail					< uuid b34b170d-2e8b-4c16-ae9a-a7009fc427ae
 
 # ----------------------------------------------------------------------------
 class Meta:Mail:Address		< uuid e1bc6f6b-041c-4dbc-b408-f12944d957f0
-							< version 1
+							< version 2
 							< requires Mail
 							< indexing manual
 							< parentrealm emailsuffix
@@ -56,7 +56,7 @@ class Meta:Mail:Address		< uuid e1bc6f6b-041c-4dbc-b408-f12944d957f0
 
 # ----------------------------------------------------------------------------
 class Mail:Box				< uuid e7534f82-ac85-47b2-9c67-40d4e2ea4450
-							< version 1
+							< version 2
 							< requires Mail
 							< indexing manual
 							< parentrealm emailsuffix
@@ -71,7 +71,7 @@ class Mail:Box				< uuid e7534f82-ac85-47b2-9c67-40d4e2ea4450
 							
 							< metatype derived
 							< metabase Meta:Mail:Address
-							< metadescription pop3:$allowpop3$ imap:$allowimap$
+							< metadescription $?allowpop3:pop3:$ $?allowimap:imap:$ $?allowrelay:smtp:$ $?autorespond:autorespond:$
 							
 	string id				: Mailbox name			< regexp [:mailuser:]
 	password password		: Password
@@ -93,7 +93,7 @@ class Mail:Box				< uuid e7534f82-ac85-47b2-9c67-40d4e2ea4450
 
 # ----------------------------------------------------------------------------
 class Mail:Alias			< uuid 6bec83e8-9fbf-49b6-bc9e-2afa4bfdef9b
-							< version 2
+							< version 3
 							< requires Mail
 							< indexing manual
 							< parentrealm emailsuffix
@@ -107,14 +107,15 @@ class Mail:Alias			< uuid 6bec83e8-9fbf-49b6-bc9e-2afa4bfdef9b
 							
 							< metatype derived
 							< metabase Meta:Mail:Address
-							< metadescription -
+							< metadescription $pridest$
 							
 	string id				: Alias address			< regexp [:mailuser:]
+	string pridest			: Primary destination address
 
 
 # ----------------------------------------------------------------------------
 class Mail:Destination		< uuid 439f8dac-94d1-4126-9cc5-1353c29eccf2
-							< version 2
+							< version 3
 							< requires Mail:Alias
 							< indexing auto
 							< shortname dest

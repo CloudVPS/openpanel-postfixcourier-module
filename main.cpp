@@ -344,6 +344,18 @@ bool postfixcourierModule::updateDestination (void)
 
 	value dstlist;
 	string address = data["Mail:Alias"]["id"].sval().lower();
+	
+	if (data["Mail:Alias"]["pridest"].sval())
+	{
+		string dst = data["Mail:Alias"]["pridest"];
+		if (dst.strchr('@', 0) == -1)
+		{
+			dst.strcat("@");
+			dst.strcat(data["Mail"]["id"].sval().lower());
+		}
+		dstlist.newval() = dst;
+	}
+	
 	foreach (dest, data["Mail:Alias"]["Mail:Destination"])
 	{
 		string dst = dest["address"];
