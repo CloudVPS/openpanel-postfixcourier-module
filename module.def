@@ -119,8 +119,8 @@ class Mail:Destination		< uuid 439f8dac-94d1-4126-9cc5-1353c29eccf2
 							< requires Mail:Alias
 							< indexing auto
 							< shortname dest
-							< title Mail Destination
-							< description Destination address
+							< title Extra Destination
+							< description Extra alias destination address
 							
 							< capabilities create update delete
 	
