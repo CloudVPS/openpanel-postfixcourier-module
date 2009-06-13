@@ -301,7 +301,7 @@ bool postfixcourierModule::updateAddress (void)
 			
 			rspdat.savexml (address);
 			
-			if (! authd.installfile (address, "/etc/vacationdrop/recipients"))
+			if (authd.installfile (address, "/etc/vacationdrop/recipients"))
 			{
 				value E = authd.getlasterror ();
 				sendresult (moderr::err_authdaemon, E["resultmsg"]);
