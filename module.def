@@ -88,10 +88,21 @@ class Mail:Box				< uuid e7534f82-ac85-47b2-9c67-40d4e2ea4450
 	bool allowrelay			: SMTP AUTH relaying access
 							< default true
 	
-	bool allowpop3			: POP3 access			< default true
-	bool allowimap			: IMAP access			< default false
-	bool autorespond		: Enable autoresponder	< default false
+	bool allowpop3			: POP3
+							< default true
+							< sameline true
+							
+	bool allowimap			: IMAP
+							< default false
+							< sameline true
+							
+	bool autorespond		: Enable autoresponder
+							< default false
+							< paddingtop 8
+							
 	textarea automessage	: Autoresponse message
+							< textwidth 45
+							< rows 10
 
 
 # ----------------------------------------------------------------------------
