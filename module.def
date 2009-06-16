@@ -26,6 +26,7 @@ class Mail					< uuid b34b170d-2e8b-4c16-ae9a-a7009fc427ae
 							< title Email
 							< description Email domain configuration
 							< sortindex 40
+							< emptytext Email has not been configured for this domain yet.
 							
 							< capabilities create update delete
 	
@@ -49,6 +50,7 @@ class Meta:Mail:Address		< uuid e1bc6f6b-041c-4dbc-b408-f12944d957f0
 							< shortname address
 							< title Address
 							< description Mail address
+							< emptytext No addresses have been configured for receiving e-mail yet.
 							
 							< metatype base
 							
@@ -135,6 +137,7 @@ class Mail:Destination		< uuid 439f8dac-94d1-4126-9cc5-1353c29eccf2
 							< shortname dest
 							< title Extra Destination
 							< description Extra alias destination address
+							< emptytext This alias only has a primary recipient.
 							
 							< capabilities create update delete
 	
