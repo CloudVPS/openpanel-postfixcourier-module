@@ -36,8 +36,9 @@ class Mail					< uuid b34b170d-2e8b-4c16-ae9a-a7009fc427ae
 	
 	bool smtpforward		: Forward entire domain at SMTP level
 							< flags enabled visible
-							< gridwidth 10
+							< gridhide true
 							< default false
+							< paddingtop 15
 	
 	string remotehost		: Host
 							< regexp [:hostport:]
