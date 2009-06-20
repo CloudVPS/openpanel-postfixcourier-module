@@ -34,10 +34,16 @@ class Mail					< uuid b34b170d-2e8b-4c16-ae9a-a7009fc427ae
 							< gridwidth 60
 							< regexp [:domain:]
 	
-	string remotehost		: Remote host for delivery (disables normal mailboxes)
+	bool smtpforward		: Forward entire domain at SMTP level
+							< flags enabled visible
+							< gridwidth 10
+							< default false
+	
+	string remotehost		: Host
 							< regexp [:hostport:]
 							< flags enabled visible
 							< gridwidth 38
+							< sameline true
 
 
 # ----------------------------------------------------------------------------

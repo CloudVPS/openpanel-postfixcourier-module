@@ -53,6 +53,8 @@ int postfixcourierModule::main (void)
 	}
 
     string subdom = data["Mail"]["id"];
+    string remotehost = data["Mail"]["remotehost"];
+    bool smtpforward = data["Mail"]["smtpforward"];
 	string pdom = data["Domain"]["id"];
 	subdom = subdom.left(subdom.strlen() - pdom.strlen() - 1);
 	
@@ -66,16 +68,15 @@ int postfixcourierModule::main (void)
 			incaseof ("Mail"):
 				// TODO: add @ in front of domain like we do with aliasdomains
 				// unless this breaks something
-				if (data["Mail"]["remotehost"].sval().strlen())
+				if (smtpforward && remotehost)
 				{
-					if (! setRemoteHost(data["Mail"]["id"],
-										data["Mail"]["remotehost"]))
+					if (! setRemoteHost(subdom, remotehost))
 					{
 						TRAP ("setRemoteHost");
 						return 0;
 					}
 						
-					if (! delPostfixDomain (data["Mail"]["id"]))
+					if (! delPostfixDomain (subdom))
 					{
 						TRAP ("delPostfixDomain");
 						return 0;
@@ -83,13 +84,13 @@ int postfixcourierModule::main (void)
 				}
 				else
 				{
-					if (! delRemoteHost(data["Mail"]["id"]))
+					if (! delRemoteHost(subdom))
 					{
 						TRAP ("delRemoteHost");
 						return 0;
 					}
 						
-					if (! setPostfixDomain (data["Mail"]["id"]))
+					if (! setPostfixDomain (subdom))
 					{
 						TRAP ("setPostfixDomain");
 						return 0;
