@@ -64,7 +64,9 @@ class Meta:Mail:Address		< uuid e1bc6f6b-041c-4dbc-b408-f12944d957f0
 							< metatype base
 							
 	string id				: Address < gridwidth 40
-	string type				: Address type < gridwidth 10
+	string type				: Address type
+							< gridwidth 10
+							< gridlabel Type
 	string description		: Description < gridwidth 48
 
 
