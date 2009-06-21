@@ -33,12 +33,14 @@ class Mail					< uuid b34b170d-2e8b-4c16-ae9a-a7009fc427ae
 	string id				: Mail (sub-)domain
 							< gridwidth 60
 							< regexp [:domain:]
+							< gridlabel Domain
 	
 	bool smtpforward		: Forward entire domain at SMTP level
 							< flags enabled visible
 							< gridhide true
 							< default false
 							< paddingtop 15
+							< gridlabel Fwd
 	
 	string remotehost		: Host
 							< regexp [:hostport:]
