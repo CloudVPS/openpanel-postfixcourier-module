@@ -40,7 +40,6 @@ class Mail					< uuid b34b170d-2e8b-4c16-ae9a-a7009fc427ae
 							< flags enabled visible
 							< gridhide true
 							< default false
-							< paddingtop 15
 							< gridlabel Fwd
 	
 	string remotehost		: Host
