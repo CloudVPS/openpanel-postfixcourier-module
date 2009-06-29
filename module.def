@@ -99,7 +99,7 @@ class Mail:Box				< uuid e7534f82-ac85-47b2-9c67-40d4e2ea4450
 							< example address@elsewhere.example.net
 							< flags enabled visible
 	
-	bool allowrelay			: SMTP AUTH relaying access
+	bool allowrelay			: SMTP AUTH
 							< default true
 	
 	bool allowpop3			: POP3
