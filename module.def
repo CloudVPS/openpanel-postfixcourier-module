@@ -36,13 +36,14 @@ class Mail					< uuid b34b170d-2e8b-4c16-ae9a-a7009fc427ae
 							< regexp [:domain:]
 							< gridlabel Domain
 	
-	bool smtpforward		: Forward entire domain at SMTP level
+	bool smtpforward		: SMTP Forwarding
 							< flags enabled visible
+							< breakcolumn true
 							< gridhide true
 							< default false
 							< gridlabel Fwd
 	
-	string remotehost		: Host
+	string remotehost		: To Host
 							< regexp [:hostport:]
 							< flags enabled visible
 							< gridwidth 38
@@ -115,7 +116,7 @@ class Mail:Box				< uuid e7534f82-ac85-47b2-9c67-40d4e2ea4450
 							
 	textarea automessage	: Autoresponse message
 							< textwidth 50
-							< rows 10
+							< rows 5
 
 
 # ----------------------------------------------------------------------------
