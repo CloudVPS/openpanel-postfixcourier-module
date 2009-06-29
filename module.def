@@ -115,6 +115,7 @@ class Mail:Box				< uuid e7534f82-ac85-47b2-9c67-40d4e2ea4450
 							< paddingtop 8
 							
 	textarea automessage	: Autoresponse message
+							< hidelabel true
 							< textwidth 50
 							< rows 5
 
