@@ -52,6 +52,7 @@ int postfixcourierModule::main (void)
 		return 1;
 	}
 
+	string maildom = data["Mail"]["id"];
     string subdom = data["Mail"]["id"];
     string remotehost = data["Mail"]["remotehost"];
     bool smtpforward = data["Mail"]["smtpforward"];
@@ -70,13 +71,13 @@ int postfixcourierModule::main (void)
 				// unless this breaks something
 				if (smtpforward && remotehost)
 				{
-					if (! setRemoteHost(subdom, remotehost))
+					if (! setRemoteHost(maildom, remotehost))
 					{
 						TRAP ("setRemoteHost");
 						return 0;
 					}
 						
-					if (! delPostfixDomain (subdom))
+					if (! delPostfixDomain (maildom))
 					{
 						TRAP ("delPostfixDomain");
 						return 0;
@@ -84,13 +85,13 @@ int postfixcourierModule::main (void)
 				}
 				else
 				{
-					if (! delRemoteHost(subdom))
+					if (! delRemoteHost(maildom))
 					{
 						TRAP ("delRemoteHost");
 						return 0;
 					}
 						
-					if (! setPostfixDomain (subdom))
+					if (! setPostfixDomain (maildom))
 					{
 						TRAP ("setPostfixDomain");
 						return 0;

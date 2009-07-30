@@ -30,12 +30,14 @@ add_to_array() {
   added=""
   rfirst=""
   ( ( get_postarray $1 | grep -v "$2" ) && echo "$2" ) | while read node; do
-    if [ -z "$rfirst" ]; then
-      rfirst=1
-    else
-      echo -n ", "
-    fi
-    echo -n "$node"
+    if [ ! -z "$node" ]; then
+	  if [ -z "$rfirst" ]; then
+		rfirst=1
+	  else
+		echo -n ", "
+	  fi
+	  echo -n "$node"
+	fi
   done
 }
 
