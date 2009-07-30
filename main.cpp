@@ -170,6 +170,7 @@ int postfixcourierModule::main (void)
 		caseselector (classid)
 		{
 			incaseof ("Mail") :
+				delRemoteHost (data["Mail"]["id"]);
 				if (! delPostfixDomain (data["Mail"]["id"].sval()))
 				{
 					TRAP ("delPostfixDomain");
