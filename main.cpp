@@ -114,7 +114,7 @@ int postfixcourierModule::main (void)
 				break;
 				
 			incaseof ("Mail:Alias"):
-				if (!updateAddress ())
+				if (!updateDestination ())
 				{
 					TRAP ("updateAddress");
 					return 0;
@@ -209,7 +209,7 @@ int postfixcourierModule::main (void)
 				break;
 				
 			incaseof ("Mail:Alias") :
-				if (! deleteAddress())
+				if (! updateDestination())
 				{
 					TRAP ("deleteAddress");
 					return 0;
