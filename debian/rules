@@ -1,0 +1,36 @@
+#!/usr/bin/make -f
+
+
+BUILD_ROOT=$(CURDIR)/debian/tmp
+install:
+trm -rf ${BUILD_ROOT}
+tmkdir -p ${BUILD_ROOT}/var/opencore/modules/PostfixCourier.module
+tmkdir -p ${BUILD_ROOT}/etc/openpanel
+tmkdir -p ${BUILD_ROOT}/var/opencore/bin
+tcp -rf ./postfixcouriermodule.app ${BUILD_ROOT}/var/opencore/modules/PostfixCourier.module/
+tcp module.xml techsupport.* ${BUILD_ROOT}/var/opencore/modules/PostfixCourier.module/
+tcp *.png ${BUILD_ROOT}/var/opencore/modules/PostfixCourier.module/
+tln -sf postfixcouriermodule.app/exec ${BUILD_ROOT}/var/opencore/modules/PostfixCourier.module/action
+tinstall -m 750 RedHat/postinst ${BUILD_ROOT}/var/opencore/modules/PostfixCourier.module/postinst
+tinstall -m 750 postarray ${BUILD_ROOT}/var/opencore/bin/postarray
+tinstall -m 755 masterconf ${BUILD_ROOT}/var/opencore/bin/masterconf
+tinstall -m 755 fixconfig ${BUILD_ROOT}/var/opencore/modules/PostfixCourier.module/fixconfig
+tinstall -m 755 verify ${BUILD_ROOT}/var/opencore/modules/PostfixCourier.module/verify
+
+build:
+t./configure
+tmake
+binary-indep:
+
+binary-arch binary: build install
+	if [ -d debian/tmp ] ; then dh_install -a --sourcedir=debian/tmp ; fi
+	dh_installdocs -a
+	dh_installdeb -a
+	dh_compress -a
+	dh_fixperms -a
+	dh_shlibdeps -a
+	dh_gencontrol -a
+	dh_md5sums -a
+	dh_builddeb -a
+
+.PHONY: build binary binary-arch binary-indep clean install
