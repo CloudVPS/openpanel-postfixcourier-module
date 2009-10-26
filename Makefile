@@ -3,14 +3,14 @@ include makeinclude
 OBJ	= main.o version.o
 
 all: module.xml postfixcouriermodule.exe masterconf
-	mkapp postfixcouriermodule
+	grace mkapp postfixcouriermodule
 	@mkdir -p tmp
 
 module.xml: module.def
 	mkmodulexml < module.def > module.xml
 
 version.cpp:
-	mkversion version.cpp
+	grace mkversion version.cpp
 
 postfixcouriermodule.exe: $(OBJ)
 	$(LD) $(LDFLAGS) -o postfixcouriermodule.exe $(OBJ) \
