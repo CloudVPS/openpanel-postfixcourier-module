@@ -2,11 +2,11 @@ Source: openpanel-mod-postfixcourier
 Section: misc
 Priority: optional
 Maintainer: OpenPanel/Panel6 packager <packages@panelsix.com>
-Build-Depends: debhelper (>= 5)
+Build-Depends: debhelper (>= 5), libgrace-dbfile-devel
 Standards-Version: 3.7.2
 
 Package: openpanel-mod-postfixcourier
 Architecture: any
-Depends: , openpanel-core (>= 0.8.3), openpanel-mod-user, openpanel-mod-domain, postfix, courier-maildrop, courier-authlib, courier-authlib-userdb, courier-authlib-pipe, courier-imap, courier-imap-ssl, courier-pop, libsasl2-modules, libdb4.4, libgdbm3
+Depends: , openpanel-core (>= 0.8.3), openpanel-mod-user, openpanel-mod-domain, postfix, courier-maildrop, courier-authlib, courier-authlib-userdb, courier-authlib-pipe, courier-imap, courier-imap-ssl, courier-pop, libsasl2-modules, libdb4.5, libgdbm3
 Description: Mailserver configuration module
  OpenPanel module for driving Postfix+Courier+Maildrop

@@ -3,23 +3,23 @@
 
 BUILD_ROOT=$(CURDIR)/debian/tmp
 install:
-trm -rf ${BUILD_ROOT}
-tmkdir -p ${BUILD_ROOT}/var/opencore/modules/PostfixCourier.module
-tmkdir -p ${BUILD_ROOT}/etc/openpanel
-tmkdir -p ${BUILD_ROOT}/var/opencore/bin
-tcp -rf ./postfixcouriermodule.app ${BUILD_ROOT}/var/opencore/modules/PostfixCourier.module/
-tcp module.xml techsupport.* ${BUILD_ROOT}/var/opencore/modules/PostfixCourier.module/
-tcp *.png ${BUILD_ROOT}/var/opencore/modules/PostfixCourier.module/
-tln -sf postfixcouriermodule.app/exec ${BUILD_ROOT}/var/opencore/modules/PostfixCourier.module/action
-tinstall -m 750 RedHat/postinst ${BUILD_ROOT}/var/opencore/modules/PostfixCourier.module/postinst
-tinstall -m 750 postarray ${BUILD_ROOT}/var/opencore/bin/postarray
-tinstall -m 755 masterconf ${BUILD_ROOT}/var/opencore/bin/masterconf
-tinstall -m 755 fixconfig ${BUILD_ROOT}/var/opencore/modules/PostfixCourier.module/fixconfig
-tinstall -m 755 verify ${BUILD_ROOT}/var/opencore/modules/PostfixCourier.module/verify
+	rm -rf ${BUILD_ROOT}
+	mkdir -p ${BUILD_ROOT}/var/opencore/modules/PostfixCourier.module
+	mkdir -p ${BUILD_ROOT}/etc/openpanel
+	mkdir -p ${BUILD_ROOT}/var/opencore/bin
+	cp -rf ./postfixcouriermodule.app ${BUILD_ROOT}/var/opencore/modules/PostfixCourier.module/
+	cp module.xml techsupport.* ${BUILD_ROOT}/var/opencore/modules/PostfixCourier.module/
+	cp *.png ${BUILD_ROOT}/var/opencore/modules/PostfixCourier.module/
+	ln -sf postfixcouriermodule.app/exec ${BUILD_ROOT}/var/opencore/modules/PostfixCourier.module/action
+	install -m 750 RedHat/postinst ${BUILD_ROOT}/var/opencore/modules/PostfixCourier.module/postinst
+	install -m 750 postarray ${BUILD_ROOT}/var/opencore/bin/postarray
+	install -m 755 masterconf ${BUILD_ROOT}/var/opencore/bin/masterconf
+	install -m 755 fixconfig ${BUILD_ROOT}/var/opencore/modules/PostfixCourier.module/fixconfig
+	install -m 755 verify ${BUILD_ROOT}/var/opencore/modules/PostfixCourier.module/verify
 
 build:
-t./configure
-tmake
+	./configure
+	make
 binary-indep:
 
 binary-arch binary: build install
