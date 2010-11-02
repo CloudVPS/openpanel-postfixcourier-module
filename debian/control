@@ -2,7 +2,7 @@ Source: openpanel-mod-postfixcourier
 Section: misc
 Priority: optional
 Maintainer: OpenPanel/Panel6 packager <packages@panelsix.com>
-Build-Depends: debhelper (>= 5), libgrace-dbfile-devel, libgrace-dbfile, libgrace, libgrace-devel, libgdbm-dev, openpanel-mkmodulexml, openpanel-core, openpanel-devel, libdb4.6-dev
+Build-Depends: debhelper (>= 5), libgrace-dbfile-dev, libgrace-dbfile, libgrace, libgrace-dev, libgdbm-dev, openpanel-mkmodulexml, openpanel-core, openpanel-dev, libdb4.6-dev
 Standards-Version: 3.7.2
 
 Package: openpanel-mod-postfixcourier
