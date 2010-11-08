@@ -1,6 +1,13 @@
+# This file is part of OpenPanel - The Open Source Control Panel
+# OpenPanel is free software: you can redistribute it and/or modify it 
+# under the terms of the GNU General Public License as published by the Free 
+# Software Foundation, using version 3 of the License.
+#
+# Please note that use of the OpenPanel trademark may be subject to additional 
+# restrictions. For more information, please visit the Legal Information 
+# section of the OpenPanel website on http://www.openpanel.com/
 # ============================================================================
 # OpenPanel PostfixCourier.module for postfix/courier-based email hosting
-# Copyright (C) 2008 PanelSix V.O.F.
 # ============================================================================
 module PostfixCourier		< uuid 8ed052b4-8040-436b-ba84-6f440b88fe0a
 							< version 1.1
