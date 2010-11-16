@@ -14,8 +14,8 @@ module PostfixCourier		< uuid 8ed052b4-8040-436b-ba84-6f440b88fe0a
 							< languages en_EN
 							< requires Domain.module
 							< apitype xml
-							< license GPL2
-							< author OpenPanel V.O.F.
+							< license GPLv3
+							< author OpenPanel
 							< url http://www.openpanel.com/
 
 
