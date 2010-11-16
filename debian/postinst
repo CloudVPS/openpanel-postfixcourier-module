@@ -28,14 +28,14 @@ set -e
 
 case "$1" in
     configure)
-ln -sf courier /etc/courier-auth
-/var/opencore/modules/PostfixCourier.module/fixconfig
-mkdir -p /var/spool/postfix/var/run/courier/authdaemon
+        ln -sf courier /etc/courier-auth
+        /var/opencore/modules/PostfixCourier.module/fixconfig
+        mkdir -p /var/spool/postfix/var/run/courier/authdaemon
 
-ln -f /var/run/courier/authdaemon/socket /var/spool/postfix/var/run/courier/authdaemon/ 2>/dev/null || true # allow failure for ubuntu, as a test
+        ln -f /var/run/courier/authdaemon/socket /var/spool/postfix/var/run/courier/authdaemon/ 2>/dev/null || true # allow failure for ubuntu, as a test
 
-invoke-rc.d courier-authdaemon restart
-
+        invoke-rc.d courier-authdaemon restart
+        invoke-rc.d openpanel-core reload
     ;;
 
     abort-upgrade|abort-remove|abort-deconfigure)
