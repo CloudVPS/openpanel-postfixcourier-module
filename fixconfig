@@ -9,11 +9,11 @@
 # restrictions. For more information, please visit the Legal Information 
 # section of the OpenPanel website on http://www.openpanel.com/
 
-postarray=/var/opencore/bin/postarray
+postarray=/var/openpanel/bin/postarray
 
 check_mastercf() {
 	egrep -q "smtp.*inet.*smtpd" /etc/postfix/master.cf || {
-		/var/opencore/bin/masterconf set smtp "inet n - n - - smtpd"
+		/var/openpanel/bin/masterconf set smtp "inet n - n - - smtpd"
 	}
 	egrep -q "vacationdrop" /etc/postfix/master.cf || {
 		/var/opencore/bin/masterconf set maildrop "unix - n n - - pipe flags=DRhu user=vmail argv=/usr/bin/vacationdrop \${recipient} \${sender}"

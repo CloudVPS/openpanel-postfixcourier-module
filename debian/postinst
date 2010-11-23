@@ -29,7 +29,7 @@ set -e
 case "$1" in
     configure)
         ln -sf courier /etc/courier-auth
-        /var/opencore/modules/PostfixCourier.module/fixconfig
+        /var/openpanel/modules/PostfixCourier.module/fixconfig
         mkdir -p /var/spool/postfix/var/run/courier/authdaemon
 		invoke-rc.d courier-authdaemon stop
 		if [ ! -L /var/run/courier/authdaemon ]; then

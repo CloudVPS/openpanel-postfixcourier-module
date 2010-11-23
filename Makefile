@@ -24,7 +24,7 @@ version.cpp:
 
 postfixcouriermodule.exe: $(OBJ)
 	$(LD) $(LDFLAGS) -o postfixcouriermodule.exe $(OBJ) \
-	/usr/lib/opencore/libcoremodule.a $(LIBS)
+	/usr/lib/openpanel-core/libcoremodule.a $(LIBS)
 
 masterconf: masterconf.o
 	$(LD) $(LDFLAGS) -o masterconf masterconf.o $(LIBS)

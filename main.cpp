@@ -17,7 +17,7 @@ APPOBJECT(postfixcourierModule);
 // TODO: move postfix rmval to one method
 // TODO: lots of errorchecking (trac:19)
 
-#define PATH_STAGING "/var/opencore/conf/staging/PostfixCourier"
+#define PATH_STAGING "/var/openpanel/conf/staging/PostfixCourier"
 
 #define TRAP(foo) sendresult (moderr::err_module, "Uncaught error condition: " foo)
 

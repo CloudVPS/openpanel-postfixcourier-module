@@ -52,22 +52,22 @@ make
 %install
 BUILD_ROOT=$RPM_BUILD_ROOT
 rm -rf ${BUILD_ROOT}
-mkdir -p ${BUILD_ROOT}/var/opencore/modules/PostfixCourier.module
+mkdir -p ${BUILD_ROOT}/var/openpanel/modules/PostfixCourier.module
 mkdir -p ${BUILD_ROOT}/etc/openpanel
-mkdir -p ${BUILD_ROOT}/var/opencore/bin
-cp -rf ./postfixcouriermodule.app ${BUILD_ROOT}/var/opencore/modules/PostfixCourier.module/
-cp module.xml techsupport.* ${BUILD_ROOT}/var/opencore/modules/PostfixCourier.module/
-cp *.png ${BUILD_ROOT}/var/opencore/modules/PostfixCourier.module/
-ln -sf postfixcouriermodule.app/exec ${BUILD_ROOT}/var/opencore/modules/PostfixCourier.module/action
-install -m 750 RedHat/postinst ${BUILD_ROOT}/var/opencore/modules/PostfixCourier.module/postinst
-install -m 750 postarray ${BUILD_ROOT}/var/opencore/bin/postarray
-install -m 755 masterconf ${BUILD_ROOT}/var/opencore/bin/masterconf
-install -m 755 fixconfig ${BUILD_ROOT}/var/opencore/modules/PostfixCourier.module/fixconfig
-install -m 755 verify ${BUILD_ROOT}/var/opencore/modules/PostfixCourier.module/verify
-install -m 750 RedHat/postinst ${BUILD_ROOT}/var/opencore/modules/PostfixCourier.module/postinst
+mkdir -p ${BUILD_ROOT}/var/openpanel/bin
+cp -rf ./postfixcouriermodule.app ${BUILD_ROOT}/var/openpanel/modules/PostfixCourier.module/
+cp module.xml techsupport.* ${BUILD_ROOT}/var/openpanel/modules/PostfixCourier.module/
+cp *.png ${BUILD_ROOT}/var/openpanel/modules/PostfixCourier.module/
+ln -sf postfixcouriermodule.app/exec ${BUILD_ROOT}/var/openpanel/modules/PostfixCourier.module/action
+install -m 750 RedHat/postinst ${BUILD_ROOT}/var/openpanel/modules/PostfixCourier.module/postinst
+install -m 750 postarray ${BUILD_ROOT}/var/openpanel/bin/postarray
+install -m 755 masterconf ${BUILD_ROOT}/var/openpanel/bin/masterconf
+install -m 755 fixconfig ${BUILD_ROOT}/var/openpanel/modules/PostfixCourier.module/fixconfig
+install -m 755 verify ${BUILD_ROOT}/var/openpanel/modules/PostfixCourier.module/verify
+install -m 750 RedHat/postinst ${BUILD_ROOT}/var/openpanel/modules/PostfixCourier.module/postinst
 
 %post
-/var/opencore/modules/PostfixCourier.module/postinst # TODO: move contents here
+/var/openpanel/modules/PostfixCourier.module/postinst # TODO: move contents here
 touch /etc/courier-auth/locallowercase
 chgrp vmail /var/spool/authdaemon
 
