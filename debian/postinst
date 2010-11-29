@@ -31,10 +31,13 @@ case "$1" in
         ln -sf courier /etc/courier-auth
         /var/opencore/modules/PostfixCourier.module/fixconfig
         mkdir -p /var/spool/postfix/var/run/courier/authdaemon
+		invoke-rc.d courier-authdaemon stop
+		if [ ! -L /var/run/courier/authdaemon ]; then
+		  rm -rf /var/run/courier/authdaemon
+		  ln -s ../../spool/postfix/var/run/courier/authdaemon /var/run/courier/authdaemon
+		fi
 
-        ln -f /var/run/courier/authdaemon/socket /var/spool/postfix/var/run/courier/authdaemon/ 2>/dev/null || true # allow failure for ubuntu, as a test
-
-        invoke-rc.d courier-authdaemon restart
+        invoke-rc.d courier-authdaemon start
         invoke-rc.d openpanel-core reload
     ;;
 
