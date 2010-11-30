@@ -121,6 +121,7 @@ _EOF_
 	touch $courierauth/locallowercase
 }
 
+check_mastercf
 setup_vmail
 setup_pf_openpaneldir
 setup_postconf
