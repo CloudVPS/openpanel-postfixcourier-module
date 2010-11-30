@@ -203,7 +203,7 @@ authd fileops
 	match *@*				: /etc/vacationdrop/recipients
 							< user root
 							< group root
-							< perms 0600
+							< perms 0644
 	
 	match *@*.*				: /var/db/vacationdrop
 							< user vmail
