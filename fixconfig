@@ -15,6 +15,9 @@ check_mastercf() {
 	egrep -q "smtp.*inet.*smtpd" /etc/postfix/master.cf || {
 		/var/opencore/bin/masterconf set smtp "inet n - n - - smtpd"
 	}
+	egrep -q "vacationdrop" /etc/postfix/master.cf || {
+		/var/opencore/bin/masterconf set maildrop "unix - n n - - pipe flags=DRhu user=vmail argv=/usr/bin/vacationdrop \${recipient} \${sender}"
+	}
 }
 
 setup_vmail() {
