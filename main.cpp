@@ -206,7 +206,7 @@ int postfixcourierModule::main (void)
 				break;
 				
 			incaseof ("Mail:Alias") :
-				if (! updateDestination())
+				if (! deleteAddress())
 				{
 					TRAP ("deleteAddress");
 					return 0;
