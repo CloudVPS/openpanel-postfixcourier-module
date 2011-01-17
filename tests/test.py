@@ -1,5 +1,7 @@
 import smtplib, subprocess
 
+requires=['Domain']
+
 def postmapq(mapname, key):
     return subprocess.Popen([
         'postmap',
