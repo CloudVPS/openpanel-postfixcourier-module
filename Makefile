@@ -29,6 +29,15 @@ postfixcouriermodule.exe: $(OBJ)
 masterconf: masterconf.o
 	$(LD) $(LDFLAGS) -o masterconf masterconf.o $(LIBS)
 
+install:
+	mkdir -p ${DESTDIR}/var/openpanel/modules/PostfixCourier.module
+	mkdir -p ${DESTDIR}/var/openpanel/conf/staging/PostfixCourier
+	cp -rf ./postfixcouriermodule.app    ${DESTDIR}/var/openpanel/modules/PostfixCourier.module/
+	ln -sf postfixcouriermodule.app/exec ${DESTDIR}/var/openpanel/modules/PostfixCourier.module/action
+	cp     module.xml          ${DESTDIR}/var/openpanel/modules/PostfixCourier.module/module.xml
+	install -m 755 verify      ${DESTDIR}/var/openpanel/modules/PostfixCourier.module/verify
+	cp techsupport.* ${DESTDIR}/var/openpanel/modules/PostfixCourier.module
+
 clean:
 	rm -f *.o *.exe
 	rm -rf postfixcouriermodule.app
