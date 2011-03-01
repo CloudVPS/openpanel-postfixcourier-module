@@ -11,11 +11,12 @@
 BUILD_ROOT=$(CURDIR)/debian/tmp
 install:
 	rm -rf ${BUILD_ROOT}
-	mkdir -p ${BUILD_ROOT}/var/openpanel/modules/PostfixCourier.module
+	mkdir -p ${BUILD_ROOT}/var/openpanel/modules/PostfixCourier.module/tests
 	mkdir -p ${BUILD_ROOT}/etc/openpanel
 	mkdir -p ${BUILD_ROOT}/var/openpanel/bin
 	cp -rf ./postfixcouriermodule.app ${BUILD_ROOT}/var/openpanel/modules/PostfixCourier.module/
 	cp module.xml techsupport.* ${BUILD_ROOT}/var/openpanel/modules/PostfixCourier.module/
+	cp tests/test.py ${BUILD_ROOT}/var/openpanel/modules/PostfixCourier.module/tests/
 	cp *.png ${BUILD_ROOT}/var/openpanel/modules/PostfixCourier.module/
 	ln -sf postfixcouriermodule.app/exec ${BUILD_ROOT}/var/openpanel/modules/PostfixCourier.module/action
 	install -m 750 RedHat/postinst ${BUILD_ROOT}/var/openpanel/modules/PostfixCourier.module/postinst
