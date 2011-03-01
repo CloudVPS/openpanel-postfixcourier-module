@@ -31,6 +31,7 @@ case "$1" in
         ln -sf courier /etc/courier-auth
         /var/openpanel/modules/PostfixCourier.module/fixconfig
         mkdir -p /var/spool/postfix/var/run/courier/authdaemon
+        chmod 755 /var/spool/postfix/var/run/courier/authdaemon
 		invoke-rc.d courier-authdaemon stop
 		if [ ! -L /var/run/courier/authdaemon ]; then
 		  rm -rf /var/run/courier/authdaemon
