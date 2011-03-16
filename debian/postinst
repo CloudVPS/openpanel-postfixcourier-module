@@ -28,6 +28,8 @@ set -e
 
 case "$1" in
     configure)
+        update-rc.d openpanel-mod-postfixcourier-symlink-hack start 15 2 3 4 5 . stop 74 0 1 6 . > /dev/null    
+    
         ln -sf courier /etc/courier-auth
         /var/openpanel/modules/PostfixCourier.module/fixconfig
         mkdir -p /var/spool/postfix/var/run/courier/authdaemon

@@ -32,6 +32,8 @@ masterconf: masterconf.o
 install:
 	mkdir -p ${DESTDIR}/var/openpanel/modules/PostfixCourier.module
 	mkdir -p ${DESTDIR}/var/openpanel/conf/staging/PostfixCourier
+	mkdir -p ${DESTDIR}/etc/init.d
+	cp -f openpanel-mod-postfixcourier-symlink-hack ${DESTDIR}/etc/init.d/
 	cp -rf ./postfixcouriermodule.app    ${DESTDIR}/var/openpanel/modules/PostfixCourier.module/
 	ln -sf postfixcouriermodule.app/exec ${DESTDIR}/var/openpanel/modules/PostfixCourier.module/action
 	cp     module.xml          ${DESTDIR}/var/openpanel/modules/PostfixCourier.module/module.xml

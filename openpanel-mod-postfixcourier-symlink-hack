@@ -1,0 +1,42 @@
+#! /bin/sh
+
+# This file is part of OpenPanel - The Open Source Control Panel
+# OpenPanel is free software: you can redistribute it and/or modify it 
+# under the terms of the GNU General Public License as published by the Free 
+# Software Foundation, using version 3 of the License.
+#
+# Please note that use of the OpenPanel trademark may be subject to additional 
+# restrictions. For more information, please visit the Legal Information 
+# section of the OpenPanel website on http://www.openpanel.com/
+
+
+### BEGIN INIT INFO
+# Provides:			openpanel-mod-postfixcourier-symlinkhack
+# Required-Start:	$local_fs 
+# Required-Stop:	$local_fs 
+# Default-Start:	2 3 4 5
+# Default-Stop:		0 1 6
+# Short-Description:	Fix for postfix-courier symlink issues
+# X-Start-Before:	postfix courier-authdaemon courier-imap courier-imap-ssl courier-pop
+### END INIT INFO
+
+case "$1" in
+  restart|force-reload|reload|start)
+	if [ ! -L /var/run/courier/authdaemon ]; then
+		rm -rf /var/run/courier/authdaemon
+		ln -s ../../spool/postfix/var/run/courier/authdaemon /var/run/courier/authdaemon
+	fi
+	;;
+	
+  stop|status)
+  	# ignored
+	;;
+  
+  *)
+	echo "Usage: $0 {start|stop|restart|force-reload|reload|status}" >&2
+	exit 1
+	;;
+esac
+
+exit 0
+
