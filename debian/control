@@ -8,7 +8,7 @@ Standards-Version: 3.7.2
 Package: openpanel-mod-postfixcourier
 Architecture: any
 Pre-Depends: openpanel-core, openpanel-authd, 
- courier-authlib, courier-authlib-userdb, courier-authlib-pipe
+ courier-authlib, courier-authlib-userdb, courier-authlib-pipe, courier-authdaemon
 Recommends: courier-imap-ssl, courier-pop-ssl
 Suggests: courier-imap, courier-pop
 Depends: openpanel-core (>= 0.8.3), openpanel-mod-user, openpanel-mod-domain, 
