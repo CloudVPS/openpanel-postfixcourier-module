@@ -7,7 +7,12 @@ Standards-Version: 3.7.2
 
 Package: openpanel-mod-postfixcourier
 Architecture: any
-Pre-Depends: openpanel-core, openpanel-authd, courier-authlib, courier-authlib-userdb, courier-authlib-pipe, courier-authdaemon
-Depends: openpanel-core (>= 0.8.3), openpanel-mod-user, openpanel-mod-domain, postfix, maildrop, courier-authlib, courier-authlib-userdb, courier-authlib-pipe, courier-imap, courier-imap-ssl, courier-pop, libsasl2-modules, libdb4.6, libgdbm3, vacationdrop, ${shlibs:Depends}, ${misc:Depends}
+Pre-Depends: openpanel-core, openpanel-authd, 
+ courier-authlib, courier-authlib-userdb, courier-authlib-pipe, courier-authdaemon
+Recommends: courier-imap-ssl, courier-pop-ssl
+Suggests: courier-imap, courier-pop
+Depends: openpanel-core (>= 0.8.3), openpanel-mod-user, openpanel-mod-domain, 
+ postfix, maildrop, courier-authlib, courier-authlib-userdb, courier-authlib-pipe, 
+ libsasl2-modules, libdb4.6, libgdbm3, vacationdrop, ${shlibs:Depends}, ${misc:Depends}
 Description: OpenPanel module to manage Postfix, Courier and Maildrop
  OpenPanel module for driving Postfix+Courier+Maildrop
