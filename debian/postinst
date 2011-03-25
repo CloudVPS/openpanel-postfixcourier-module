@@ -41,6 +41,7 @@ case "$1" in
 		fi
 
         invoke-rc.d courier-authdaemon start
+        invoke-rc.d openpanel-core reload
     ;;
 
     abort-upgrade|abort-remove|abort-deconfigure)
