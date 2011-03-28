@@ -125,8 +125,22 @@ _EOF_
 	touch $courierauth/locallowercase
 }
 
+setup_maildrop() {
+	grep -q RCFILES /etc/maildroprc && return
+	cat >> /etc/maildroprc << '_EOF_'
+# OpenPanel-maildrop.d-BEGIN
+RCFILES=`ls /etc/maildrop.d/*.rc 2> /dev/null`
+foreach($RCFILES) =~ /[^ ]+/
+{
+	include "$MATCH"
+}
+# OpenPanel-maildrop.d-END
+_EOF_
+}
+
 check_mastercf
 setup_vmail
 setup_pf_openpaneldir
 setup_postconf
 setup_saslconf
+setup_maildrop
