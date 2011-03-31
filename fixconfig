@@ -126,6 +126,7 @@ _EOF_
 }
 
 setup_maildrop() {
+	mkdir -p /etc/maildrop.d
 	grep -q RCFILES /etc/maildroprc && return
 	cat >> /etc/maildroprc << '_EOF_'
 # OpenPanel-maildrop.d-BEGIN
