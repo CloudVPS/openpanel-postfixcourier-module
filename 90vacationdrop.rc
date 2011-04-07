@@ -1,0 +1,1 @@
+cc "|/usr/bin/vacationdrop --nomaildrop ${LOGNAME} ${FROM}"

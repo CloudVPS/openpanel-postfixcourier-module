@@ -15,7 +15,9 @@ install:
 	mkdir -p ${BUILD_ROOT}/etc/openpanel
 	mkdir -p ${BUILD_ROOT}/var/openpanel/bin
 	mkdir -p ${BUILD_ROOT}/etc/init.d
+	mkdir -p ${BUILD_ROOT}/etc/maildrop.d
 	cp -f openpanel-mod-postfixcourier-symlink-hack ${BUILD_ROOT}/etc/init.d/
+	cp -f 90vacationdrop.rc ${BUILD_ROOT}/etc/maildrop.d/
 	cp -rf ./postfixcouriermodule.app ${BUILD_ROOT}/var/openpanel/modules/PostfixCourier.module/
 	cp module.xml techsupport.* ${BUILD_ROOT}/var/openpanel/modules/PostfixCourier.module/
 	cp tests/test.py ${BUILD_ROOT}/var/openpanel/modules/PostfixCourier.module/tests/

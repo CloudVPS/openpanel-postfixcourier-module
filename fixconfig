@@ -12,12 +12,13 @@
 postarray=/var/openpanel/bin/postarray
 
 check_mastercf() {
+	# make sure smtp is set up correctly
 	egrep -q "smtp.*inet.*smtpd" /etc/postfix/master.cf || {
 		/var/openpanel/bin/masterconf set smtp "inet n - n - - smtpd"
 	}
-	egrep -q "vacationdrop" /etc/postfix/master.cf || {
-		/var/openpanel/bin/masterconf set maildrop "unix - n n - - pipe flags=DRhu user=vmail argv=/usr/bin/vacationdrop \${recipient} \${sender}"
-	}
+
+	# override whatever maildrop setting is in master.cf
+	/var/openpanel/bin/masterconf set maildrop "unix - n n - - pipe flags=DRhu user=vmail argv=/usr/bin/maildrop -d \${recipient} -f \${sender}"
 }
 
 setup_vmail() {
