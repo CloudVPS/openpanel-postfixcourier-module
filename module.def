@@ -97,7 +97,7 @@ class Mail:Box				< uuid e7534f82-ac85-47b2-9c67-40d4e2ea4450
 							< metadescription $?allowpop3:pop3:$ $?allowimap:imap:$ $?allowrelay:smtp:$ $?autorespond:autorespond:$
 							
 	string id				: Mailbox name			
-							< regexp ^[a-z0-9\-_.@]+$
+							< regexp ^[a-z0-9_.@+-]+$
 						
 	password password		: Password
 							< crypt md5
@@ -147,7 +147,7 @@ class Mail:Alias			< uuid 6bec83e8-9fbf-49b6-bc9e-2afa4bfdef9b
 							< metadescription $pridest$
 							
 	string id				: Alias address			
-							< regexp ^[a-z0-9\-_.@]+$
+							< regexp ^[a-z0-9_.@+-]+$
 	string pridest			: Primary destination address
 
 
