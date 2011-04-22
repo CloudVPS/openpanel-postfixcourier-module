@@ -1,4 +1,4 @@
-import smtplib, subprocess
+import smtplib, poplib, subprocess, random, time, string
 
 requires=['Domain']
 
@@ -21,6 +21,27 @@ def smtpauthcheck(ctx, box, password):
         
     s.quit()
     return True
+
+def send(ctx, box, token):
+    s = smtplib.SMTP()
+    s.connect()
+    ctx.logger.debug(s.sendmail(box, box, token))
+    s.quit()
+    
+def retr(ctx, box, password):
+    for i in range(20):
+        try:
+            p = poplib.POP3('localhost')
+            p.user(box)
+            p.pass_(password)
+            msg = p.retr(1)[1]
+            p.dele(1)
+            p.quit()
+            return msg
+        except:
+            time.sleep(0.5)
+            continue
+    ctx.fail("no-retr", "failed to retrieve any messages")
 
 def test(ctx):
     try:
@@ -57,6 +78,14 @@ def test(ctx):
     if not smtpauthcheck(ctx, box, ctx.password):
         ctx.fail("smtp-auth", 'smtp auth does not work')
         return False
+
+    token = ''.join(random.choice(string.letters) for i in xrange(32)).lower()
+    send(ctx, box, token)
+    msg = retr(ctx, box, ctx.password)
+    if token == msg[-1]:
+        ctx.logger.debug('token email sent and received correctly')
+    else:
+        ctx.fail("token-compare", "sent (%s) got (%s)" % (token, msg[-1]))
 
     aliasuuid = ctx.conn.rpc.create(classid="Mail:Alias", objectid=alias, parentid=mailuuid, data=dict(pridest='test@example.com'))['body']['data']['objid']
     ctx.conn.rpc.delete(classid="Mail:Alias", objectid=aliasuuid)
