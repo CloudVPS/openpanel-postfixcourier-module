@@ -28,7 +28,7 @@ def send(ctx, box, token):
     ctx.logger.debug(s.sendmail(box, box, token))
     s.quit()
     
-def retr(ctx, box, password):
+def retr(ctx, box, password, failtag = None):
     for i in range(20):
         try:
             p = poplib.POP3('localhost')
@@ -41,8 +41,15 @@ def retr(ctx, box, password):
         except:
             time.sleep(0.5)
             continue
-    ctx.fail("no-retr", "failed to retrieve any messages")
+    if failtag:
+        ctx.fail(failtag, "failed to retrieve any messages")
+    
+    return None
 
+def roundtrip(ctx, token, failtag = None):
+    send(ctx, ctx.postfixcourierbox, token)
+    return retr(ctx, ctx.postfixcourierbox, ctx.password, failtag)
+    
 def test(ctx):
     try:
         ctx.conn.rpc.classinfo(classid='Mail')
@@ -55,6 +62,7 @@ def test(ctx):
         return False
         
     mailuuid = ctx.conn.rpc.create(classid="Mail", objectid=ctx.domain, parentid=ctx.domainuuid)['body']['data']['objid']
+    ctx.mailuuid = mailuuid
     ctx.logger.debug('created Mail %s (%s)' % (ctx.domain, mailuuid))
 
     if postmapq('virtual_mailbox_domains', ctx.domain)[0] == 'VIRTUAL\n':
@@ -64,6 +72,7 @@ def test(ctx):
         return False
         
     box=ctx.username+'@'+ctx.domain
+    ctx.postfixcourierbox=box
     alias='a_'+ctx.username+'+alias@'+ctx.domain
     
     if smtpauthcheck(ctx, box, ctx.password):
@@ -80,8 +89,7 @@ def test(ctx):
         return False
 
     token = ''.join(random.choice(string.letters) for i in xrange(32)).lower()
-    send(ctx, box, token)
-    msg = retr(ctx, box, ctx.password)
+    msg = roundtrip(ctx, token, "no-retr")
     if token == msg[-1]:
         ctx.logger.debug('token email sent and received correctly')
     else:
@@ -97,4 +105,5 @@ def test(ctx):
     return True
 
 def cleanup(ctx):
+    # Domain will clean it all up
     pass
