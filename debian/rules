@@ -28,6 +28,8 @@ install:
 	install -m 755 masterconf ${BUILD_ROOT}/var/openpanel/bin/masterconf
 	install -m 755 fixconfig ${BUILD_ROOT}/var/openpanel/modules/PostfixCourier.module/fixconfig
 	install -m 755 verify ${BUILD_ROOT}/var/openpanel/modules/PostfixCourier.module/verify
+	mkdir -p ${BUILD_ROOT}/var/openpanel/modules/PostfixCourier.module/tests
+	cp     tests/test.py          ${BUILD_ROOT}/var/openpanel/modules/PostfixCourier.module/tests/
 
 build:
 	./configure
