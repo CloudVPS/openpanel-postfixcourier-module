@@ -39,6 +39,8 @@ install:
 	cp     module.xml          ${DESTDIR}/var/openpanel/modules/PostfixCourier.module/module.xml
 	install -m 755 verify      ${DESTDIR}/var/openpanel/modules/PostfixCourier.module/verify
 	cp techsupport.* ${DESTDIR}/var/openpanel/modules/PostfixCourier.module
+	mkdir -p ${DESTDIR}/var/openpanel/modules/PostfixCourier.module/tests
+	cp     tests/test.py          ${DESTDIR}/var/openpanel/modules/PostfixCourier.module/tests/
 
 clean:
 	rm -f *.o *.exe
