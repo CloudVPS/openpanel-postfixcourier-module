@@ -89,8 +89,8 @@ def test(ctx):
         return False
 
     token = ''.join(random.choice(string.letters) for i in xrange(32)).lower()
-    msg = roundtrip(ctx, token, "no-retr")
     time.sleep(60) # horrible hack for postfix reload behaviour
+    msg = roundtrip(ctx, token, "no-retr")
     if token == msg[-1]:
         ctx.logger.debug('token email sent and received correctly')
     else:
