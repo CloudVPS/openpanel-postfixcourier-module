@@ -118,7 +118,7 @@ class Mail:Box				< uuid e7534f82-ac85-47b2-9c67-40d4e2ea4450
 							< default false
 							< sameline true
 							
-	bool autorespond		: E-mail autoresponder
+	bool autorespond		: E-mail autoresponder (do not use on mailinglists!)
 							< default false
 							< paddingtop 8
 							
