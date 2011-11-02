@@ -34,7 +34,7 @@ case "$1" in
         /var/openpanel/modules/PostfixCourier.module/fixconfig
         mkdir -p /var/spool/postfix/var/run/courier/authdaemon
         chmod 755 /var/spool/postfix/var/run/courier/authdaemon
-		invoke-rc.d courier-authdaemon stop
+		invoke-rc.d courier-authdaemon stop || true
 		if [ ! -L /var/run/courier/authdaemon ]; then
 		  rm -rf /var/run/courier/authdaemon
 		  ln -s ../../spool/postfix/var/run/courier/authdaemon /var/run/courier/authdaemon
