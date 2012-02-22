@@ -37,7 +37,7 @@ case "$1" in
 		invoke-rc.d courier-authdaemon stop || true
 		if [ ! -L /var/run/courier/authdaemon ]; then
 		  rm -rf /var/run/courier/authdaemon
-		  ln -s ../../spool/postfix/var/run/courier/authdaemon /var/run/courier/authdaemon
+		  ln -s /var/spool/postfix/var/run/courier/authdaemon /var/run/courier/authdaemon
 		fi
 
         invoke-rc.d courier-authdaemon start
